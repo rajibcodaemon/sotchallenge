@@ -1,0 +1,58 @@
+ 
+  body {
+    padding-top: 54px;
+  }
+
+  @media (min-width: 992px) {
+    body {
+      padding-top: 56px;
+    }
+  }
+  /*Progress loader css start*/
+  .loader {
+    text-align: center;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 80px;
+    height: 80px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  /*Progress loader css end*/
+
+  // Classes
+  .show {
+    display: block !important;
+  }
+  .hidden {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  .invisible {
+    visibility: hidden;
+  }
+  #myProgress {
+    width: 100%;
+    background-color: #ddd;
+  }
+
+  #myBar {
+    width: 10%;
+    height: 30px;
+    background-color: #4CAF50;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+  }
