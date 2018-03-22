@@ -1,270 +1,283 @@
-  // Calling function from UI action to retrive search data
-  function getEmployeeData() {  
-    var data = $('#emp_id').val();
-    var callurl = 'http://52.87.171.80/sample_crud_rest/api/v1/employee/'+data;
-    var method= 'GET';
+// Calling function from UI action to retrive search data
+function getEmployeeData() {
+    var data = {};
+    data.emp_first_name = $('#emp_first_name_ser').val();
+    data.emp_last_name = $('#emp_last_name_ser').val();
 
-    if(data){                                      // if blank not input
-      apiCallBackAll(data,callurl,method).then(function(data) {    // call promise
+    var callurl = 'http://52.87.171.80/sample_crud_rest/api/v1/employee?filter=emp_first_name=' + data.emp_first_name + ',emp_last_name=' + data.emp_last_name;
+    var method = 'GET';
+    var datavar = null;
+    var flag = '0'; // Show loader
+    $("#table").addClass("hidden");
+    $('#serv_msg').addClass("hidden");
+    $("#alert").addClass("hidden");
+    $("#table").addClass("hidden");
+    $("#alert").addClass("alert-success");
+    if (data) { // if blank not input
+     apiCallBackAll(datavar, callurl, method, flag).then(function(data) { // call promise
         $('#emp_id').empty();
         $('#employeeResponse').empty();
-        var response = JSON.parse(data);
-        $('#serv_resp').empty().append(response.status);
+        var response = data;
+        $('#serv_msg').removeClass("hidden");
         $('#serv_msg').empty().append(response.message);
         $('#empResp tbody').remove();
-        $("#myProgress").addClass("hidden");
+        $("#progressbar").addClass("hidden");
         $("#alert").removeClass("hidden");
         $("#alert").removeClass("alert-danger");
         $("#table").removeClass("hidden");
         $("#alert").addClass("alert-success");
         var trHTML = '';
-        $.each(response.data, function (i, item) {
-         trHTML +='<tbody><td scope="row">' + item.emp_id + '</td><td>' + item.emp_username  + '</td><td>' + item.emp_first_name  + '</td><td>' + item.emp_last_name  + '</td><td>' + item.emp_gender  + '</td><td>' + item.emp_phone  + '</td><td>' + item.emp_email  + '</td><td>' + item.emp_address  + '</td><td>' + item.emp_designation  + '</td><td>' + item.emp_department  + '</td><td><button onclick="getEmployeeDelete(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="editEmployeeData(' + item.emp_id + ')"><i class="fa fa-edit"></i></button></td></tr></tbody>';
-          //$('#empResp').empty();
+        $.each(response.data, function(i, item) {
+            trHTML += '<tbody><td scope="row">' + item.emp_id + '</td><td>' + item.emp_username + '</td><td>' + item.emp_first_name + '</td><td>' + item.emp_last_name + '</td><td>' + item.emp_gender + '</td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td>' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td>' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')"><i class="fa fa-edit"></i></button></td></tr></tbody>';
         });
         $('#empResp').append(trHTML);
-      }).catch(function(error) {   // if failed
+        }).catch(function(error) { // if failed
         $('#employeeResponse').empty();
-        var response = JSON.parse(error);
-        $('#serv_resp').empty().append(response.status);
+        var response = error;
+        $('#serv_msg').removeClass("hidden");
         $('#serv_msg').empty().append(response.message);
-        $("#myProgress").addClass("hidden");
+        $("#progressbar").addClass("hidden");
         $("#alert").removeClass("alert-success");
         $("#alert").addClass("alert-danger");
         $("#table").addClass("hidden");
         $("#alert").removeClass("hidden");
-      });
-    }
-  }
-
-  
-  // Calling function from UI action for add employee data
-  function addEmployee() {
-     var data = {};
-     data.emp_username = $('input[name=emp_username_add]').val();
-     data.emp_first_name  = $('input[name=emp_first_name_add]').val();
-     data.emp_last_name  = $('input[name=emp_last_name_add]').val();
-     data.emp_gender  = $('input[name=emp_gender_add]:checked').val();
-     data.emp_email  = $('input[name=emp_email_add]').val();
-     data.emp_phone  = $('input[name=emp_phone_add]').val();
-     data.emp_address  = $('input[name=emp_address_add]').val();
-     data.emp_designation  = $('input[name=emp_designation_add]').val();
-     //data.emp_department  = $('input[name=emp_department_add]').val();
-     data.emp_department  = $(".emp_department_add option:selected").val();
-     var callingurl = "http://52.87.171.80/sample_crud_rest/api/v1/employee";
-     var datavar = JSON.stringify(data);
-     var method = 'POST';
-   if(data){
-    $("#addEmployeeData").modal('hide');
-    apiCallBackAll(datavar,callingurl,method).then(function(data){
-      $("#exampleModal").modal('hide');
-      $('#employeeResponse').empty();
-      var response = JSON.parse(data);
-      $('#serv_resp').empty().append(response.status);
-      $('#serv_msg').empty().append(response.message);
-      $('#empResp tbody').remove();
-      $("#myProgress").addClass("hidden");
-      $("#alert").removeClass("hidden");
-      $("#myProgress").addClass("alert-success");
-      $("#table").removeClass("hidden");
-      $('#addEmployeeData').trigger("reset");
-      setInterval(getAllEmployeeData(), 10000);
-  	    }).catch(function(error) {   // if failed
-          $("#exampleModal").modal('hide');
-          $('#employeeResponse').empty();
-          var response = JSON.parse(error);
-          $('#serv_resp').empty().append(response.status);
-          $('#serv_msg').empty().append(response.message);
-          $("#myProgress").addClass("hidden");
-          $("#alert").removeClass("hidden");
-          $("#alert").removeClass("alert-success");
-          $("#alert").addClass("alert-danger");
-          $("#table").addClass("hidden");
-          setInterval(getAllEmployeeData(), 10000);
         });
-  	  }
-   }
+    }
+}
 
 
+// Calling function from UI action for add employee data
+function getAddUpdataEmployeeData() {
+    var data = {};
+    data.emp_username = $('#emp_username').val();
+    data.emp_first_name = $('#emp_first_name').val();
+    data.emp_last_name = $('#emp_last_name').val();
+    data.emp_gender = $('input[name=emp_gender]:checked').val();
+    data.emp_email = $('#emp_email').val();
+    data.emp_phone = $('#emp_phone').val();
+    data.emp_address = $('#emp_address').val();
+    data.emp_designation = $('#emp_designation').val();
+    data.emp_department = $("#emp_department option:selected").val();
 
-  // Calling function from UI action for to get all employee data
-  function getAllEmployeeData() {
+    if ($('#emp_id').val() != '') {
+        data.emp_id = $('#emp_id').val();
+        var callingurl = "http://52.87.171.80/sample_crud_rest/api/v1/employee/" + data.emp_id;
+        var method = 'PUT';
+        var flag = '1'; // Dot not show loader
+    } else {
+        var callingurl = "http://52.87.171.80/sample_crud_rest/api/v1/employee";
+        var method = 'POST';
+        var flag = '0'; // Dot not show loader   
+    }
+
+
+    var datavar = JSON.stringify(data);
+    $("#getAddUpdataEmployeeDataModal").modal('hide');
+    $("#table").addClass("hidden");
+    $('#serv_msg').addClass("hidden");
+    $("#alert").addClass("hidden");
+    $("#table").addClass("hidden");
+    $("#alert").addClass("alert-success");
+    if (data) {
+        $('#getAddUpdataEmployeeData')[0].reset();
+     apiCallBackAll(datavar, callingurl, method, flag).then(function(data) {
+        $("#getAddUpdataEmployeeDataModal").modal('hide');
+        $('#employeeResponse').empty();
+        var response = data;
+        $('#serv_msg').removeClass("hidden");
+        $('#serv_msg').empty().append(response.message);
+        $('#empResp tbody').remove();
+        $("#progressbar").addClass("hidden");
+        $("#alert").removeClass("hidden");
+        $("#alert").removeClass("alert-danger");
+        $('#getAddUpdataEmployeeData').trigger("reset");
+        }).catch(function(error) { // if failed
+        $("#getAddUpdataEmployeeDataModal").modal('hide');
+        $('#employeeResponse').empty();
+        var response = error
+        $('#serv_msg').removeClass("hidden");
+        $('#serv_msg').empty().append(response.message);
+        $("#progressbar").addClass("hidden");
+        $("#alert").removeClass("hidden");
+        $("#alert").removeClass("alert-success");
+        $("#alert").addClass("alert-danger");
+        $("#table").addClass("hidden");
+        });
+    }
+}
+
+// Javascript function from UI to load edit modal on UI.
+function showEditEmployeeModal(emp_id) {
+    var data = null;
+    var callurl = 'http://52.87.171.80/sample_crud_rest/api/v1/employee/' + emp_id;
+    var method = 'GET';
+    var flag = '1'; // Dot not show loader
+    $("#table").addClass("hidden");
+    $('#serv_msg').addClass("hidden");
+    $("#alert").addClass("hidden");
+    $("#table").addClass("hidden");
+     apiCallBackAll(data, callurl, method, flag).then(function(data) { // call promise
+        var response = data;
+        $("#progressbar").addClass("hidden");
+        $("#emp_id").val(response.data['0'].emp_id);
+        $("#emp_username").val(response.data['0'].emp_username);
+        $("#emp_first_name").val(response.data['0'].emp_first_name);
+        $("#emp_last_name").val(response.data['0'].emp_last_name);
+        $("#emp_phone").val(response.data['0'].emp_phone);
+        $("#emp_email").val(response.data['0'].emp_email);
+        $("#emp_address").val(response.data['0'].emp_address);
+        $("#emp_department").val(response.data['0'].emp_department);
+        $("#emp_designation").val(response.data['0'].emp_designation);
+        if (response.data['0'].emp_gender == 'male') {
+            $("#emp_gender_male").prop('checked', true);
+        } else {
+            $("#emp_gender_female").prop('checked', true);
+        }
+        $("#getAddUpdataEmployeeDataModal").modal('show');
+    }).catch(function(error) { // if failed
+        $("#progressbar").addClass("hidden");
+    });
+}
+
+// Calling function from UI action for to get all employee data
+function getAllEmployeeData() {
     var callingurl = "http://52.87.171.80/sample_crud_rest/api/v1/employee";
     var datavar = null;
     var method = 'GET';
-      apiCallBackAll(datavar,callingurl,method).then(function(data) {    // call promise
-        $('#employeeResponse').empty();
-        var response = JSON.parse(data);
-        $('#serv_resp').empty().append(response.status);
-        $('#serv_msg').empty().append(response.message);
-        $("#myProgress").addClass("hidden");
+    $("#table").addClass("hidden");
+    $('#serv_msg').addClass("hidden");
+    $("#alert").addClass("hidden");
+    $("#table").addClass("hidden");
+    $("#alert").addClass("alert-success");
+    var flag = '0'; // Show loader
+     apiCallBackAll(datavar, callingurl, method, flag).then(function(data) { // call promise
+        $('#employeeResponse')
+        var response = data;
+        $('#serv_msg').empty().removeClass("hidden").append(response.message);
+        $("#progressbar").addClass("hidden");
         $('#empResp tbody').remove();
         $("#alert").removeClass("hidden");
         $("#alert").removeClass("alert-danger");
         $("#table").removeClass("hidden");
         $("#alert").addClass("alert-success");
         var trHTML = '';
-        $.each(response.data, function (i, item) {
-         trHTML +='<tbody><td scope="row">' + item.emp_id + '</td><td>' + item.emp_username  + '</td><td>' + item.emp_first_name  + '</td><td>' + item.emp_last_name  + '</td><td>' + item.emp_gender  + '</td><td>' + item.emp_phone  + '</td><td>' + item.emp_email  + '</td><td>' + item.emp_address  + '</td><td>' + item.emp_designation  + '</td><td>' + item.emp_department  + '</td><td><button onclick="getEmployeeDelete(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="editEmployeeData(' + item.emp_id + ')"><i class="fa fa-edit"></i></button></td></tr></tbody>';
-          //$('#empResp').empty();
+        $.each(response.data, function(i, item) {
+            trHTML += '<tbody><td scope="row">' + item.emp_id + '</td><td>' + item.emp_username + '</td><td>' + item.emp_first_name + '</td><td>' + item.emp_last_name + '</td><td>' + item.emp_gender + '</td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td>' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td>' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')"><i class="fa fa-edit"></i></button></td></tr></tbody>';
         });
         $('#empResp').append(trHTML);
-      }).catch(function(error) {   // if failed
+    }).catch(function(error) { // if failed
 
-      });
-    }
+    });
+}
 
 
 
-  // Calling function from UI action for to get an employee data for delete
-  function getEmployeeDelete(emp_id){
-    var callingurl = "http://52.87.171.80/sample_crud_rest/api/v1/employee/"+emp_id;
+// Calling function from UI action for to get an employee data for delete
+function deleteEmployee(emp_id) {
+    var callingurl = "http://52.87.171.80/sample_crud_rest/api/v1/employee/" + emp_id;
     var datavar = null;
     var method = 'DELETE';
+    var flag = '0'; // Dot not show loader
+    $("#table").addClass("hidden");
+    $('#serv_msg').addClass("hidden");
+    $("#alert").addClass("hidden");
+    $("#table").addClass("hidden");
+    $("#alert").addClass("alert-success");
     var cnf = confirm('Are you sure to remove the employee data?');
-    if(cnf){
-    apiCallBackAll(datavar,callingurl,method).then(function(data) {    // call promise
-      var response = JSON.parse(data);
-      $('#serv_resp').empty().append(response.status);
-      $('#serv_msg').empty().append(response.message);
-      setInterval(getAllEmployeeData(), 10000);
-      }).catch(function(error) {   // if failed
-
-      });
-    }
-  }
-
-  
-
-  // Javascript function from UI to call edit an employee data.
-  function editEmployeeData(emp_id){
-    var data = null;
-    var callurl = 'http://52.87.171.80/sample_crud_rest/api/v1/employee/'+emp_id;
-    var method= 'GET';
-    apiCallBackAll(data,callurl,method).then(function(data) {    // call promise
-      var response = JSON.parse(data);
-      $("#myProgress").addClass("hidden");
-      $("#emp_id").val(response.data['0'].emp_id);
-      $("#emp_username").val(response.data['0'].emp_username);
-      $("#emp_first_name").val(response.data['0'].emp_first_name);
-      $("#emp_last_name").val(response.data['0'].emp_last_name);
-      $("#emp_phone").val(response.data['0'].emp_phone);
-      $("#emp_email").val(response.data['0'].emp_email);
-      $("#emp_address").val(response.data['0'].emp_address);
-      $("#emp_department").val(response.data['0'].emp_department);
-      $("#emp_designation").val(response.data['0'].emp_designation);
-      if(response.data['0'].emp_gender=='male'){
-       $("#emp_gender_male").prop('checked', true);
-     }else{
-      $("#emp_gender_female").prop('checked', true); 
-    }
-    $("#myModal").modal('show');
-        //setInterval(getAllEmployeeData(), 10000);
-      }).catch(function(error) {   // if failed
-       $("#myProgress").addClass("hidden");
-      });
-    }
-
-  // Javascript function to call from UI to update an employee data.
-  function updateEmployeeData() { 
-    var data = {};
-    data.emp_id = $('input[name=emp_id]').val();
-    data.emp_username = $('input[name=emp_username]').val();
-    data.emp_first_name  = $('input[name=emp_first_name]').val();
-    data.emp_last_name  = $('input[name=emp_last_name]').val();
-    data.emp_gender  = $('input[name=emp_gender]:checked').val();
-    data.emp_email  = $('input[name=emp_email]').val();
-    data.emp_phone  = $('input[name=emp_phone]').val();
-    data.emp_address  = $('input[name=emp_address]').val();
-    data.emp_designation  = $('input[name=emp_designation]').val();
-    data.emp_department  = $("#emp_department option:selected").val();
-    //$('input[name=emp_department]').val();
-
-    var callingurl = "http://52.87.171.80/sample_crud_rest/api/v1/employee/"+data.emp_id;
-    var datavar = JSON.stringify(data);
-    var method = 'PUT';
-    if(data){ 
-     apiCallBackAll(datavar,callingurl,method).then(function(data){
-           //console.log(data);
-           $("#myModal").modal('hide');
-           $('#employeeResponse').empty();
-           var response = JSON.parse(data);
-           $("#myProgress").addClass("hidden");
-           $('#serv_resp').empty().append(response.status);
-           $('#serv_msg').empty().append(response.message);
-           setInterval(getAllEmployeeData(), 10000);
-           }).catch(function(error) {   // if failed
-             $('#employeeResponse').empty();
-             var response = JSON.parse(error);
-             $("#myProgress").addClass("hidden");
-             $('#serv_resp').empty().append(response.status);
-             $('#serv_msg').empty().append(response.message);
-             setInterval(getAllEmployeeData(), 10000);
-           });
-         }   
+    if (cnf) {
+     apiCallBackAll(datavar, callingurl, method, flag).then(function(data) { // call promise
+        var response = data;
+        $('#serv_msg').empty().removeClass("hidden").append(response.message);
+        $("#progressbar").addClass("hidden");
+        $('#empResp tbody').remove();
+        $("#alert").removeClass("hidden");
+        $("#alert").removeClass("alert-danger");
+        $("#table").addClass("hidden");
+        $("#alert").addClass("alert-success");
+        }).catch(function(error) { // if failed
+     });
    }
+}
 
 
 //Function for loader bar
-function move() {
-  var elem = document.getElementById("myBar");   
-  var width = 10;
-  var id = setInterval(frame, 10);
-  function frame() {
-    if (width >= 100) {
-      clearInterval(id);
-    } else {
-      width++; 
-      elem.style.width = width + '%'; 
-      elem.innerHTML = width * 1  + '%';
-    }
-  }
+function showLoadingAnimation() {
+    $("#progressbar").removeClass("hidden");
+    $(function() {
+     var progressbar = $("#progressbar"),
+     progressLabel = $(".progress-label");
+        progressbar.progressbar({
+            value: true,
+            change: function() {
+                if (parseInt(progressbar.progressbar("value")) <= 30) {
+                    progressLabel.text("Calling API...");
+                } else if (parseInt(progressbar.progressbar("value")) > 30 && parseInt(progressbar.progressbar("value")) < 70) {
+                    progressLabel.text("Getting Response...");
+                } else {
+                    progressLabel.text(progressbar.progressbar("value") + "%");
+                }
+            },
+            complete: function() {
+                progressLabel.text("Complete!");
+            }
+        });
+
+        function progress() {
+            var val = progressbar.progressbar("value") || 0;
+            progressbar.progressbar("value", val + 2);
+            if (val < 99) {
+                setTimeout(progress, 80);
+            }
+        }
+        setTimeout(progress, 2000);
+    });
 }
 
 // Api for all PUT DELETE POST GET Request
-/*function apiCallBackAll(data,callurl,method){
- return new Promise(function(resolve, reject) {
-  var request = new XMLHttpRequest();
-  request.open(method, callurl,true);
-  request.setRequestHeader('Content-Type', 'application/json');
-  $("#myProgress").removeClass("hidden");
-  setInterval(move(), 100000);
-  request.onload = function() {
-    if (request.status == 200) {
-          resolve(request.response);                 // we get the data here, so resolve the Promise
-        } else {
-          //alert(request.response);
-          reject(request.response);                 // if status is not 200 OK, reject.
-        }
-      };
-
-      request.onerror = function() {
-        $("#myProgress").addClass("hidden");
-        reject(request.response);             // error occurred, so reject the Promise
-      };
-      request.send(data); // send the request
-    });
-}*/
-
-
-function apiCallBackAll(data,callurl,method){ 
- //return new Promise(function(resolve, reject) {
-      const url = callurl;
-      var request = new Request(url, {
-            method: method, 
-            //body: JSON.stringify(data), 
-            mode: 'cors', 
-            redirect: 'follow',
+function apiCallBackAll(data, callurl, method, flag) {
+    return new Promise(function(resolve, reject) {
+        const url = callurl;
+        var request = new Request(url, {
+            method: method,
+            body: data,
             headers: new Headers({
-                    'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             })
         });
-        //alert(request);
-      fetch(request).then(function(response) {
-        console.log(request.response);
-        //resolve(response.json()); 
-      }).catch(function(err) {
-        console.log(err);
-      });
-    //});
+        fetch(request)
+            .then((resp) => resp.json())
+            .then(showLoadingAnimation())
+            .then(function(data) {
+                if (flag == 0) {
+                    if (data.status == 'success') {
+                        window.setTimeout(function() {
+                            $("#progressbar").addClass("hidden")
+                            resolve(data)
+                        }, 6000);
+                    } else {
+                        window.setTimeout(function() {
+                            $("#progressbar").addClass("hidden")
+                            reject(data)
+                        }, 6000);
+                    }
+                } else {
+                    if (data.status == 'success') {
+                        resolve(data)
+                    } else {
+                        reject(data)
+                    }
+                }
+
+            })
+            .catch(function(error) {
+                if ($flag == 0) {
+                    window.setTimeout(function() {
+                        $("#progressbar").addClass("hidden")
+                        reject(error)
+                    }, 6000);
+                } else {
+                    reject(error)
+                }
+            });
+    });
 }
