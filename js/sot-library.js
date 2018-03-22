@@ -222,7 +222,7 @@ function move() {
 }
 
 // Api for all PUT DELETE POST GET Request
-function apiCallBackAll(data,callurl,method){
+/*function apiCallBackAll(data,callurl,method){
  return new Promise(function(resolve, reject) {
   var request = new XMLHttpRequest();
   request.open(method, callurl,true);
@@ -244,29 +244,27 @@ function apiCallBackAll(data,callurl,method){
       };
       request.send(data); // send the request
     });
-}
+}*/
 
 
-/*function apiCallBackAll(data,callurl,method){
- return new Promise(function(resolve, reject) {
+function apiCallBackAll(data,callurl,method){ 
+ //return new Promise(function(resolve, reject) {
       const url = callurl;
       var request = new Request(url, {
             method: method, 
-            body: data, 
+            //body: JSON.stringify(data), 
             mode: 'cors', 
             redirect: 'follow',
             headers: new Headers({
                     'Content-Type': 'application/json'
             })
         });
-
+        //alert(request);
       fetch(request).then(function(response) {
-        console.log(response.status);
-        resolve(response); 
-      }).then(function(returnedValue) {
-        console.log(returnedValue);
+        console.log(request.response);
+        //resolve(response.json()); 
       }).catch(function(err) {
         console.log(err);
       });
-    });
-}*/
+    //});
+}
