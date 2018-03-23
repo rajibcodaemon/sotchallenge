@@ -86,6 +86,7 @@ function showEditEmployeeModal(emp_id) {
     var method = 'GET';
     var flag = '1'; // Dot not show loader
     $("#alert").addClass("hidden");
+    $("#inprogress").addClass("hidden");
      apiCallBackAll(data, callurl, method, flag).then(function(data) { // call promise
         var response = data;
         $("#progressbar").addClass("hidden");
@@ -195,7 +196,7 @@ function showLoadingAnimation() {
 }
 
 // Api for all PUT DELETE POST GET Request
-function apiCallBackAll(data, callurl, method, flag) {
+function apiCallBackAll(data, callurl, method, flag) { 
     return new Promise(function(resolve, reject) {
         const url = callurl;
         var request = new Request(url, {
