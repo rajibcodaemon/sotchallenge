@@ -120,7 +120,6 @@ function getAllEmployeeData() {
     showHideMessage();
     var flag = '0'; // Show loader
      apiCallBackAll(datavar, callingurl, method, flag).then(function(data) { // call promise
-        $('#employeeResponse')
         var response = data;
         $('#serv_msg').empty().removeClass("hidden").append(response.message);
         $("#progressbar").addClass("hidden");
@@ -160,7 +159,6 @@ function deleteEmployee(emp_id) {
 
 //Function for loader bar
 function showLoadingAnimation() {
-    $("#progressbar").removeClass("hidden");
     $(function() {
      var progressbar = $("#progressbar"),
      progressLabel = $(".progress-label");
@@ -246,6 +244,7 @@ function apiCallBackAll(data, callurl, method, flag) {
 
 // common message
 function showHideMessage(){
+  $("#progressbar").removeClass("hidden");
   $("#table").addClass("hidden");
   $('#serv_msg').addClass("hidden");
   $("#alert").addClass("hidden");
@@ -256,6 +255,7 @@ function showHideMessage(){
 // Massage success response
 function showHideMessageResponseSuccess(){
   $('#emp_id').empty();
+  $('#inprogress').removeClass("hidden");
   $('#employeeResponse').empty();
   $('#serv_msg').removeClass("hidden");
   $('#empResp tbody').remove();
@@ -269,6 +269,7 @@ function showHideMessageResponseSuccess(){
 // Massage error response
 function showHideMessageResponseError(){
   $('#employeeResponse').empty();
+  $('#inprogress').removeClass("hidden");
   $('#serv_msg').removeClass("hidden");
   $("#progressbar").addClass("hidden");
   $("#alert").removeClass("alert-success");
