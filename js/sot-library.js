@@ -48,20 +48,20 @@ function getAddUpdataEmployeeData() {
         data.emp_id = $('#emp_id').val();
         var callingurl = "http://52.87.171.80/sample_crud_rest/api/v1/employee/" + data.emp_id;
         var method = 'PUT';
-        var flag = '1'; // Dot not show loader
     } else {
         var callingurl = "http://52.87.171.80/sample_crud_rest/api/v1/employee";
         var method = 'POST';
-        var flag = '0'; // Dot not show loader   
+         
     }
 
-
+    var flag = '0'; // Show loader  
     var datavar = JSON.stringify(data);
     $("#getAddUpdataEmployeeDataModal").modal('hide');
-    showHideMessage();
+    
     if (data) {
+        showHideMessage();
         $('#getAddUpdataEmployeeData')[0].reset();
-     apiCallBackAll(datavar, callingurl, method, flag).then(function(data) {
+        apiCallBackAll(datavar, callingurl, method, flag).then(function(data) {
         var response = data;
         $("#getAddUpdataEmployeeDataModal").modal('hide');
         $('#serv_msg').empty().append(response.message);
@@ -86,7 +86,7 @@ function showEditEmployeeModal(emp_id) {
     var method = 'GET';
     var flag = '1'; // Dot not show loader
     $("#alert").addClass("hidden");
-    $("#inprogress").addClass("hidden");
+    
      apiCallBackAll(data, callurl, method, flag).then(function(data) { // call promise
         var response = data;
         $("#progressbar").addClass("hidden");
@@ -141,10 +141,11 @@ function deleteEmployee(emp_id) {
     var callingurl = "http://52.87.171.80/sample_crud_rest/api/v1/employee/" + emp_id;
     var datavar = null;
     var method = 'DELETE';
-    var flag = '0'; // Dot not show loader
-    $("#alert").addClass("hidden");
+    var flag = '0'; // Show loader
+    
     var cnf = confirm('Are you sure to remove the employee data?');
     if (cnf) {
+     showHideMessage();
      apiCallBackAll(datavar, callingurl, method, flag).then(function(data) { // call promise
         var response = data;
         $('#serv_msg').empty().removeClass("hidden").append(response.message);
@@ -255,7 +256,7 @@ function showHideMessage(){
 // Massage success response
 function showHideMessageResponseSuccess(){
   $('#emp_id').empty();
-  $('#inprogress').removeClass("hidden");
+  $('#progressbar').removeClass("hidden");
   $('#employeeResponse').empty();
   $('#serv_msg').removeClass("hidden");
   $('#empResp tbody').remove();
@@ -269,7 +270,6 @@ function showHideMessageResponseSuccess(){
 // Massage error response
 function showHideMessageResponseError(){
   $('#employeeResponse').empty();
-  $('#inprogress').removeClass("hidden");
   $('#serv_msg').removeClass("hidden");
   $("#progressbar").addClass("hidden");
   $("#alert").removeClass("alert-success");
