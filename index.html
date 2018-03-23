@@ -11,8 +11,10 @@
       <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
       <!-- Custom styles for this template -->
       <link href="css/sot-library.css" rel="stylesheet">
+      <link rel="stylesheet" href="css/table.css">
       <link rel="stylesheet/scss" type="text/css" href="sot-library.scss">
       <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
    </head>
@@ -61,31 +63,29 @@
                <div class="card card-outline-secondary">
                   <div class="card-header">Action Result</div>
                   <div class="card-body">
-                     <button id="button" type="button" class="btn btn-primary" onclick="getAllEmployeeData()">Show All Employee</button>&nbsp;
-                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#getAddUpdataEmployeeDataModal">
-                     Add Employee
-                     </button>
+                     <button id="button" type="button" class="btn btn-primary" onclick="getAllEmployeeData()">Show All</button>&nbsp;
+                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#getAddUpdataEmployeeDataModal" onclick="clearModalData();">Add</button>
                   </div>
-                  <div class="card-body" id="employeeResponse">
-                  </div>
+                  <!-- <div class="card-body" id="employeeResponse"></div> -->
                   <div id="showResponseArea">
+                  	<div class="card-body">
                      <div id="progressbar" class="hidden">
                         <div class="progress-label">Loading...</div>
                      </div>
                      <div id="alert" class="alert alert-success hidden">
                         <span id="serv_msg"></span>
                      </div>
-                     <div id="table" class="table-responsive hidden">
+                 </div>
+                 <div class="card-body">
+                     <div id="table" class="hidden">
                         <div class="wrapper container">
                            <div class="row">
                               <table class="table table-condensed" id="empResp">
                                  <thead>
                                     <tr>
-                                       <th class="text-left">Id</th>
+                                       
                                        <th class="text-left">User Name</th>
-                                       <th class="text-left">First Name</th>
-                                       <th class="text-left">Last Name</th>
-                                       <th class="text-left">Gender</th>
+                                       <th class="text-left">Name</th>
                                        <th class="text-left">Phone</th>
                                        <th class="text-left">Email</th>
                                        <th class="text-left">Address</th>
@@ -98,6 +98,7 @@
                            </div>
                         </div>
                      </div>
+                 </div>
                   </div>
                </div>
                <!-- /.card -->
@@ -111,7 +112,7 @@
          <div class="modal-dialog" role="document">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="addUpdateEmployeeModalLabel">Update Employee</h5>
+                  <h5 class="modal-title" id="addUpdateEmployeeModalLabel">Employee Details</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>

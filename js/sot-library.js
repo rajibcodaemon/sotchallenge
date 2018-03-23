@@ -1,3 +1,4 @@
+
 // Calling function from UI action to retrive search data
 function getEmployeeData() {
     var data = {};
@@ -8,39 +9,23 @@ function getEmployeeData() {
     var method = 'GET';
     var datavar = null;
     var flag = '0'; // Show loader
-    $("#table").addClass("hidden");
-    $('#serv_msg').addClass("hidden");
-    $("#alert").addClass("hidden");
-    $("#table").addClass("hidden");
-    $("#alert").addClass("alert-success");
+    showHideMessage();
     if (data) { // if blank not input
      apiCallBackAll(datavar, callurl, method, flag).then(function(data) { // call promise
-        $('#emp_id').empty();
-        $('#employeeResponse').empty();
         var response = data;
-        $('#serv_msg').removeClass("hidden");
+        showHideMessageResponseSuccess();
         $('#serv_msg').empty().append(response.message);
-        $('#empResp tbody').remove();
-        $("#progressbar").addClass("hidden");
-        $("#alert").removeClass("hidden");
-        $("#alert").removeClass("alert-danger");
-        $("#table").removeClass("hidden");
-        $("#alert").addClass("alert-success");
         var trHTML = '';
         $.each(response.data, function(i, item) {
-            trHTML += '<tbody><td scope="row">' + item.emp_id + '</td><td>' + item.emp_username + '</td><td>' + item.emp_first_name + '</td><td>' + item.emp_last_name + '</td><td>' + item.emp_gender + '</td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td>' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td>' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')"><i class="fa fa-edit"></i></button></td></tr></tbody>';
+            trHTML += '<tbody><td>' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td>' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td>' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')"><i class="fa fa-edit"></i></button></td></tr></tbody>';
         });
         $('#empResp').append(trHTML);
+        positionPage();
         }).catch(function(error) { // if failed
-        $('#employeeResponse').empty();
         var response = error;
-        $('#serv_msg').removeClass("hidden");
+        showHideMessageResponseError();
         $('#serv_msg').empty().append(response.message);
-        $("#progressbar").addClass("hidden");
-        $("#alert").removeClass("alert-success");
-        $("#alert").addClass("alert-danger");
-        $("#table").addClass("hidden");
-        $("#alert").removeClass("hidden");
+        positionPage();
         });
     }
 }
@@ -73,35 +58,23 @@ function getAddUpdataEmployeeData() {
 
     var datavar = JSON.stringify(data);
     $("#getAddUpdataEmployeeDataModal").modal('hide');
-    $("#table").addClass("hidden");
-    $('#serv_msg').addClass("hidden");
-    $("#alert").addClass("hidden");
-    $("#table").addClass("hidden");
-    $("#alert").addClass("alert-success");
+    showHideMessage();
     if (data) {
         $('#getAddUpdataEmployeeData')[0].reset();
      apiCallBackAll(datavar, callingurl, method, flag).then(function(data) {
-        $("#getAddUpdataEmployeeDataModal").modal('hide');
-        $('#employeeResponse').empty();
         var response = data;
-        $('#serv_msg').removeClass("hidden");
-        $('#serv_msg').empty().append(response.message);
-        $('#empResp tbody').remove();
-        $("#progressbar").addClass("hidden");
-        $("#alert").removeClass("hidden");
-        $("#alert").removeClass("alert-danger");
-        $('#getAddUpdataEmployeeData').trigger("reset");
-        }).catch(function(error) { // if failed
         $("#getAddUpdataEmployeeDataModal").modal('hide');
-        $('#employeeResponse').empty();
-        var response = error
-        $('#serv_msg').removeClass("hidden");
         $('#serv_msg').empty().append(response.message);
-        $("#progressbar").addClass("hidden");
-        $("#alert").removeClass("hidden");
-        $("#alert").removeClass("alert-success");
-        $("#alert").addClass("alert-danger");
+        $('#getAddUpdataEmployeeData').trigger("reset");
+        showHideMessageResponseSuccess();     
         $("#table").addClass("hidden");
+        positionPage();
+        }).catch(function(error) { // if failed
+        var response = error
+        $("#getAddUpdataEmployeeDataModal").modal('hide');
+        showHideMessageResponseError();
+        $('#serv_msg').empty().append(response.message);
+        positionPage();
         });
     }
 }
@@ -112,10 +85,7 @@ function showEditEmployeeModal(emp_id) {
     var callurl = 'http://52.87.171.80/sample_crud_rest/api/v1/employee/' + emp_id;
     var method = 'GET';
     var flag = '1'; // Dot not show loader
-    $("#table").addClass("hidden");
-    $('#serv_msg').addClass("hidden");
     $("#alert").addClass("hidden");
-    $("#table").addClass("hidden");
      apiCallBackAll(data, callurl, method, flag).then(function(data) { // call promise
         var response = data;
         $("#progressbar").addClass("hidden");
@@ -134,8 +104,10 @@ function showEditEmployeeModal(emp_id) {
             $("#emp_gender_female").prop('checked', true);
         }
         $("#getAddUpdataEmployeeDataModal").modal('show');
+        positionPage();
     }).catch(function(error) { // if failed
         $("#progressbar").addClass("hidden");
+        positionPage();
     });
 }
 
@@ -144,32 +116,24 @@ function getAllEmployeeData() {
     var callingurl = "http://52.87.171.80/sample_crud_rest/api/v1/employee";
     var datavar = null;
     var method = 'GET';
-    $("#table").addClass("hidden");
-    $('#serv_msg').addClass("hidden");
-    $("#alert").addClass("hidden");
-    $("#table").addClass("hidden");
-    $("#alert").addClass("alert-success");
+    showHideMessage();
     var flag = '0'; // Show loader
      apiCallBackAll(datavar, callingurl, method, flag).then(function(data) { // call promise
         $('#employeeResponse')
         var response = data;
         $('#serv_msg').empty().removeClass("hidden").append(response.message);
         $("#progressbar").addClass("hidden");
-        $('#empResp tbody').remove();
-        $("#alert").removeClass("hidden");
-        $("#alert").removeClass("alert-danger");
-        $("#table").removeClass("hidden");
-        $("#alert").addClass("alert-success");
+        showHideMessageResponseSuccess();
         var trHTML = '';
         $.each(response.data, function(i, item) {
-            trHTML += '<tbody><td scope="row">' + item.emp_id + '</td><td>' + item.emp_username + '</td><td>' + item.emp_first_name + '</td><td>' + item.emp_last_name + '</td><td>' + item.emp_gender + '</td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td>' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td>' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')"><i class="fa fa-edit"></i></button></td></tr></tbody>';
+            trHTML += '<tbody><td>' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td>' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td>' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')"><i class="fa fa-edit"></i></button></td></tr></tbody>';
         });
         $('#empResp').append(trHTML);
+        positionPage();
     }).catch(function(error) { // if failed
 
     });
 }
-
 
 
 // Calling function from UI action for to get an employee data for delete
@@ -178,22 +142,15 @@ function deleteEmployee(emp_id) {
     var datavar = null;
     var method = 'DELETE';
     var flag = '0'; // Dot not show loader
-    $("#table").addClass("hidden");
-    $('#serv_msg').addClass("hidden");
     $("#alert").addClass("hidden");
-    $("#table").addClass("hidden");
-    $("#alert").addClass("alert-success");
     var cnf = confirm('Are you sure to remove the employee data?');
     if (cnf) {
      apiCallBackAll(datavar, callingurl, method, flag).then(function(data) { // call promise
         var response = data;
         $('#serv_msg').empty().removeClass("hidden").append(response.message);
-        $("#progressbar").addClass("hidden");
-        $('#empResp tbody').remove();
-        $("#alert").removeClass("hidden");
-        $("#alert").removeClass("alert-danger");
+        showHideMessageResponseSuccess();
         $("#table").addClass("hidden");
-        $("#alert").addClass("alert-success");
+        positionPage();
         }).catch(function(error) { // if failed
      });
    }
@@ -209,9 +166,9 @@ function showLoadingAnimation() {
         progressbar.progressbar({
             value: true,
             change: function() {
-                if (parseInt(progressbar.progressbar("value")) <= 30) {
+                if (parseInt(progressbar.progressbar("value")) <= 10) {
                     progressLabel.text("Calling API...");
-                } else if (parseInt(progressbar.progressbar("value")) > 30 && parseInt(progressbar.progressbar("value")) < 70) {
+                } else if (parseInt(progressbar.progressbar("value")) > 10 && parseInt(progressbar.progressbar("value")) < 20) {
                     progressLabel.text("Getting Response...");
                 } else {
                     progressLabel.text(progressbar.progressbar("value") + "%");
@@ -225,11 +182,15 @@ function showLoadingAnimation() {
         function progress() {
             var val = progressbar.progressbar("value") || 0;
             progressbar.progressbar("value", val + 2);
-            if (val < 99) {
-                setTimeout(progress, 80);
+            if (val < 30) {
+                setTimeout(progress, Math.floor((Math.random() * 600) + 1));
+            }else if (val > 30 && val < 60) {
+                setTimeout(progress, Math.floor((Math.random() * 300) + 1));
+            }else{
+                setTimeout(progress, Math.floor((Math.random() * 600) + 1));
             }
         }
-        setTimeout(progress, 2000);
+        setTimeout(progress, 1000);
     });
 }
 
@@ -253,12 +214,12 @@ function apiCallBackAll(data, callurl, method, flag) {
                         window.setTimeout(function() {
                             $("#progressbar").addClass("hidden")
                             resolve(data)
-                        }, 6000);
+                        }, 10000);
                     } else {
                         window.setTimeout(function() {
                             $("#progressbar").addClass("hidden")
                             reject(data)
-                        }, 6000);
+                        }, 10000);
                     }
                 } else {
                     if (data.status == 'success') {
@@ -274,10 +235,56 @@ function apiCallBackAll(data, callurl, method, flag) {
                     window.setTimeout(function() {
                         $("#progressbar").addClass("hidden")
                         reject(error)
-                    }, 6000);
+                    }, 10000);
                 } else {
                     reject(error)
                 }
             });
     });
+}
+
+// common message
+function showHideMessage(){
+  $("#table").addClass("hidden");
+  $('#serv_msg').addClass("hidden");
+  $("#alert").addClass("hidden");
+  $("#table").addClass("hidden");
+  $("#alert").addClass("alert-success");
+}
+
+// Massage success response
+function showHideMessageResponseSuccess(){
+  $('#emp_id').empty();
+  $('#employeeResponse').empty();
+  $('#serv_msg').removeClass("hidden");
+  $('#empResp tbody').remove();
+  $("#progressbar").addClass("hidden");
+  $("#alert").removeClass("hidden");
+  $("#alert").removeClass("alert-danger");
+  $("#table").removeClass("hidden");
+  $("#alert").addClass("alert-success");
+}
+
+// Massage error response
+function showHideMessageResponseError(){
+  $('#employeeResponse').empty();
+  $('#serv_msg').removeClass("hidden");
+  $("#progressbar").addClass("hidden");
+  $("#alert").removeClass("alert-success");
+  $("#alert").addClass("alert-danger");
+  $("#table").addClass("hidden");
+  $("#alert").removeClass("hidden");
+}
+
+// Clear form data
+function clearModalData(){
+ $('#getAddUpdataEmployeeData').trigger("reset");
+ $("#getAddUpdataEmployeeData")[0].reset();
+ $("input[type=hidden]").val('');
+}
+
+function positionPage(){
+  $('html, body').animate({
+        scrollTop: $('#showResponseArea').offset().top
+    }, 'slow');
 }
