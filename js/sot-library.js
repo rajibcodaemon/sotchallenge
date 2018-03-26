@@ -209,12 +209,12 @@ function apiCallBackAll(data, callurl, method, flag) {
                         window.setTimeout(function() {
                             $("#progressbar").addClass("hidden")
                             resolve(data)
-                        }, 21000);
+                        }, 21500);
                     } else {
                         window.setTimeout(function() {
                             $("#progressbar").addClass("hidden")
                             reject(data)
-                        }, 21000);
+                        }, 21500);
                     }
                 } else {
                     if (data.status == 'success') {
@@ -230,7 +230,7 @@ function apiCallBackAll(data, callurl, method, flag) {
                     window.setTimeout(function() {
                         $("#progressbar").addClass("hidden")
                         reject(error)
-                    }, 21000);
+                    }, 21500);
                 } else {
                     reject(error)
                 }
