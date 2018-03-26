@@ -16,6 +16,8 @@
 
       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script src="js/validator.js"></script>
+
    </head>
    <body>
       <!-- Navigation -->
@@ -43,33 +45,37 @@
                <div class="card mt-4">
                   <div class="card-body">
                      <h3 class="card-title">Search Employee</h3>
-                     <form id="soget" name="soget" method="POST" action="#" onsubmit="getEmployeeData();return false;">
+                     <form data-toggle="validator" role="form" id="soget" name="soget" method="POST" action="#" onsubmit="getEmployeeData();return false;">
                         <div class="form-row">
                            <div class="form-group col-md-6">
                               <label for="inputEmail4">First Name</label>
                               <input type="text" class="form-control" id="emp_first_name_ser" name="emp_first_name" placeholder="e.g: Bijoy" required>
+                              <div class="help-block with-errors"></div>
                            </div>
                            <div class="form-group col-md-6">
                               <label for="inputPassword4">Last Name</label>
                               <input type="text" class="form-control" id="emp_last_name_ser" name="emp_last_name" placeholder="e.g: Malik" required>
+                              <div class="help-block with-errors"></div>
                            </div>
+
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-custom">Submit</button>
                      </form>
                   </div>
                </div>
                <!-- /.card -->
+               <div class="row gap-table"></div>
                <div class="card card-outline-secondary">
                   <div class="card-header">Action Result</div>
                   <div class="card-body">
                      <button id="button" type="button" class="btn btn-primary" onclick="getAllEmployeeData()">Show All</button>&nbsp;
-                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#getAddUpdataEmployeeDataModal" onclick="clearModalData();">Add</button>
+                     <button type="button" class="btn btn-primary btn-custom" data-toggle="modal" data-target="#getAddUpdataEmployeeDataModal" onclick="clearModalData();">Add Employee</button>
                   </div>
                   <!-- <div class="card-body" id="employeeResponse"></div> -->
                   <div id="showResponseArea">
                   	<div class="card-body">
                      <div id="progressbar" class="hidden">
-                        <div class="progress-label">Loading...</div>
+                        <div class="progress-label"></div>
                      </div>
                      <div id="alert" class="alert alert-success hidden">
                         <span id="serv_msg"></span>
@@ -79,7 +85,7 @@
                      <div id="table" class="hidden">
                         <div class="wrapper container">
                            <div class="row">
-                              <table class="table table-condensed" id="empResp">
+                              <table class="table table-condensed table-bordered" id="empResp">
                                  <thead>
                                     <tr>
                                        
@@ -93,6 +99,7 @@
                                        <th class="text-left">Action</th>
                                     </tr>
                                  </thead>
+                                 <div></div>
                               </table>
                            </div>
                         </div>
@@ -117,56 +124,65 @@
                   </button>
                </div>
                <div class="modal-body">
-                  <form id="getAddUpdataEmployeeData" name="updateEmployee" method="POST" action="#" onsubmit="getAddUpdataEmployeeData();return false;">
+                  <form data-toggle="validator" role="form"  id="getAddUpdataEmployeeData" name="updateEmployee" method="POST" action="#" onsubmit="getAddUpdataEmployeeData();return false;">
                      <input type="hidden" class="form-control" id="emp_id" name="emp_id" required>
                      <div class="form-group">
                         <label for="emp_username">User Name</label>
                         <input type="text" class="form-control" id="emp_username" name="emp_username" placeholder="Emploee User Name" required>
+                        <div class="help-block with-errors"></div>
                      </div>
                      <div class="form-group">
                         <label for="emp_first_name">First Name</label>
                         <input type="text" class="form-control" id="emp_first_name" name="emp_first_name" placeholder="Emploee First Name" required>
+                        <div class="help-block with-errors"></div>
                      </div>
                      <div class="form-group">
                         <label for="emp_last_name">Last Name</label>
-                        <input type="text" class="form-control" id="emp_last_name" name="emp_last_name" placeholder="Emploee Last Name">
+                        <input type="text" class="form-control" id="emp_last_name" name="emp_last_name" placeholder="Emploee Last Name" required>
+                        <div class="help-block with-errors"></div>
                      </div>
-                     <div class="form-check form-check-inline">
+                     <div class="radio form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="emp_gender" id="emp_gender_male" value="male" required>
                         <label class="form-check-label" for="inlineRadio1">Male</label>
+                        <div class="help-block with-errors"></div>
                      </div>
-                     <div class="form-check form-check-inline">
+                     <div class="radio form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="emp_gender" id="emp_gender_female" value="female" required>
                         <label class="form-check-label" for="inlineRadio2">Female</label>
                      </div>
                      <div class="form-group">
                         <label for="exampleFormControlInput1">Email address</label>
                         <input type="email" class="form-control" id="emp_email" name="emp_email" placeholder="name@example.com" required>
+                        <div class="help-block with-errors"></div>
                      </div>
                      <div class="form-group">
                         <label for="exampleFormControlInput1">Phone</label>
                         <input type="text" class="form-control" id="emp_phone" name="emp_phone" placeholder="" required>
+                        <div class="help-block with-errors"></div>
                      </div>
                      <div class="form-group">
                         <label for="inputAddress">Address</label>
-                        <input type="text" class="form-control" id="emp_address" name="emp_address" placeholder="1234 Main St">
+                        <input type="text" class="form-control" id="emp_address" name="emp_address" placeholder="1234 Main St" required>
+                        <div class="help-block with-errors"></div>
                      </div>
                      <div class="form-group">
                         <label for="emp_last_name">Designation</label>
                         <input type="text" class="form-control" id="emp_designation" name="emp_designation" placeholder="Emploee Designation" required>
+                        <div class="help-block with-errors"></div>
                      </div>
                      <div class="form-group">
                         <label for="exampleFormControlSelect1">Example Department</label>
-                        <select class="form-control" id="emp_department" name="emp_department" designation>
-                           <option value="" selected="selected">Select Department</option>
+                        <select class="form-control" id="emp_department" name="emp_department" required>
+                           <option >Select Department</option>
                            <option value="HR">HR</option>
                            <option value="BD">BD</option>
                            <option value="SD">SD</option>
                         </select>
+                        <div class="help-block with-errors"></div>
                      </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" id="add_edit_form" name="submit" class="btn btn-primary">Submit</button>
                      </div>
                   </form>
                </div>

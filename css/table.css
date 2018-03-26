@@ -19,8 +19,6 @@
       left: -9999px;
     }
 
-    tr { border: 1px solid #ccc; }
-
     td {
       /* Behave  like a "row" */
       border: none;
@@ -43,6 +41,18 @@
 
   }
 
+  @media screen and (max-width: 1024px) {
+    #empResp tbody {
+      margin-top: 20px;
+      border: 1px solid #CCC;
+      border-radius: 5px;
+    }
+
+    #empResp {
+      border: none;
+    }
+    })
+
   /* Smartphones (portrait and landscape) ----------- */
   @media only screen
   and (min-device-width : 320px)
@@ -55,7 +65,5 @@
 
   /* iPads (portrait and landscape) ----------- */
   @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-    body {
-      width: 495px;
-    }
+    
   }

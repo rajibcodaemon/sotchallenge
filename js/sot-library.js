@@ -1,6 +1,7 @@
 
 // Calling function from UI action to retrive search data
 function getEmployeeData() {
+    //e.preventDefault();
     var data = {};
     data.emp_first_name = $('#emp_first_name_ser').val();
     data.emp_last_name = $('#emp_last_name_ser').val();
@@ -11,14 +12,16 @@ function getEmployeeData() {
     var flag = '0'; // Show loader
     showHideMessage();
     if (data) { // if blank not input
+     //search_from_validation_remove();
      apiCallBackAll(datavar, callurl, method, flag).then(function(data) { // call promise
         var response = data;
         showHideMessageResponseSuccess();
         $('#serv_msg').empty().append(response.message);
-        var trHTML = '';
-        $.each(response.data, function(i, item) {
-            trHTML += '<tbody><td>' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td>' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td>' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm" title="Delete Data"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')" title="Edit Data"><i class="fa fa-edit"></i></button></td></tr></tbody>';
+       var trHTML = '';
+          $.each(response.data, function(i, item) {
+            trHTML += '<tbody><td class="d-none d-md-block">' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td class="d-none d-md-block">' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td class="d-none d-md-block">' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm" title="Delete Data"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')" title="Edit Data"><i class="fa fa-edit"></i></button></td></tr></tbody>';
         });
+        
         $('#empResp').append(trHTML);
         positionPage();
         }).catch(function(error) { // if failed
@@ -33,6 +36,8 @@ function getEmployeeData() {
 
 // Calling function from UI action for add employee data
 function getAddUpdataEmployeeData() {
+    $( "button" ).click(function( event ) {
+    event.preventDefault();
     var data = {};
     data.emp_username = $('#emp_username').val();
     data.emp_first_name = $('#emp_first_name').val();
@@ -53,11 +58,10 @@ function getAddUpdataEmployeeData() {
         var method = 'POST';
          
     }
-
+    
     var flag = '0'; // Show loader  
     var datavar = JSON.stringify(data);
     $("#getAddUpdataEmployeeDataModal").modal('hide');
-    
     if (data) {
         showHideMessage();
         $('#getAddUpdataEmployeeData')[0].reset();
@@ -76,7 +80,9 @@ function getAddUpdataEmployeeData() {
         $('#serv_msg').empty().append(response.message);
         positionPage();
         });
+    }else{
     }
+  });
 }
 
 // Javascript function from UI to load edit modal on UI.
@@ -125,9 +131,10 @@ function getAllEmployeeData() {
         $("#progressbar").addClass("hidden");
         showHideMessageResponseSuccess();
         var trHTML = '';
-        $.each(response.data, function(i, item) {
-            trHTML += '<tbody><td>' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td>' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td>' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm" title="Delete Data"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')" title="Edit Data"><i class="fa fa-edit"></i></button></td></tr></tbody>';
+          $.each(response.data, function(i, item) {
+            trHTML += '<tbody><td class="d-none d-md-block">' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td class="d-none d-md-block">' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td class="d-none d-md-block">' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm" title="Delete Data"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')" title="Edit Data"><i class="fa fa-edit"></i></button></td></tr></tbody>';
         });
+
         $('#empResp').append(trHTML);
         positionPage();
     }).catch(function(error) { // if failed
@@ -166,13 +173,7 @@ function showLoadingAnimation() {
         progressbar.progressbar({
             value: true,
             change: function() {
-                if (parseInt(progressbar.progressbar("value")) <= 10) {
-                    progressLabel.text("Calling API...");
-                } else if (parseInt(progressbar.progressbar("value")) > 10 && parseInt(progressbar.progressbar("value")) < 20) {
-                    progressLabel.text("Getting Response...");
-                } else {
-                    progressLabel.text(progressbar.progressbar("value") + "%");
-                }
+                progressLabel.text(progressbar.progressbar("value") + "%");
             },
             complete: function() {
                 progressLabel.text("Complete!");
@@ -181,13 +182,13 @@ function showLoadingAnimation() {
 
         function progress() {
             var val = progressbar.progressbar("value") || 0;
-            progressbar.progressbar("value", val + 2);
+            progressbar.progressbar("value", val + 1);
             if (val < 30) {
-                setTimeout(progress, Math.floor((Math.random() * 600) + 1));
+                setTimeout(progress, Math.floor((Math.random() * 500) + 1));
             }else if (val > 30 && val < 60) {
-                setTimeout(progress, Math.floor((Math.random() * 300) + 1));
+                setTimeout(progress, Math.floor((Math.random() * 200) + 1));
             }else{
-                setTimeout(progress, Math.floor((Math.random() * 600) + 1));
+                setTimeout(progress, Math.floor((Math.random() * 400) + 1));
             }
         }
         setTimeout(progress, 1000);
@@ -214,12 +215,12 @@ function apiCallBackAll(data, callurl, method, flag) {
                         window.setTimeout(function() {
                             $("#progressbar").addClass("hidden")
                             resolve(data)
-                        }, 10000);
+                        }, 21500);
                     } else {
                         window.setTimeout(function() {
                             $("#progressbar").addClass("hidden")
                             reject(data)
-                        }, 10000);
+                        }, 21500);
                     }
                 } else {
                     if (data.status == 'success') {
@@ -235,7 +236,7 @@ function apiCallBackAll(data, callurl, method, flag) {
                     window.setTimeout(function() {
                         $("#progressbar").addClass("hidden")
                         reject(error)
-                    }, 10000);
+                    }, 21500);
                 } else {
                     reject(error)
                 }
@@ -248,7 +249,7 @@ function showHideMessage(){
   $("#progressbar").removeClass("hidden");
   $("#table").addClass("hidden");
   $('#serv_msg').addClass("hidden");
-  $("#alert").addClass("hidden");
+  $("#alert").addClass("hidden").delay(20000).fadeOut(1000);;
   $("#table").addClass("hidden");
   $("#alert").addClass("alert-success");
 }
@@ -258,11 +259,11 @@ function showHideMessageResponseSuccess(){
   $('#emp_id').empty();
   $('#progressbar').removeClass("hidden");
   $('#employeeResponse').empty();
-  $('#serv_msg').removeClass("hidden");
+  $('#serv_msg').removeClass("hidden")
   $('#empResp tbody').remove();
   $("#progressbar").addClass("hidden");
-  $("#alert").removeClass("hidden");
-  $("#alert").removeClass("alert-danger");
+  $("#alert").removeClass("hidden").delay(30000).fadeOut(1000);
+  $("#alert").removeClass("alert-danger").delay(30000).fadeOut(1000);;
   $("#table").removeClass("hidden");
   $("#alert").addClass("alert-success");
 }
@@ -272,10 +273,10 @@ function showHideMessageResponseError(){
   $('#employeeResponse').empty();
   $('#serv_msg').removeClass("hidden");
   $("#progressbar").addClass("hidden");
-  $("#alert").removeClass("alert-success");
+  $("#alert").removeClass("alert-success").delay(30000).fadeOut(1000);;
   $("#alert").addClass("alert-danger");
   $("#table").addClass("hidden");
-  $("#alert").removeClass("hidden");
+  $("#alert").removeClass("hidden").delay(30000).fadeOut(1000);;
 }
 
 // Clear form data
@@ -290,3 +291,4 @@ function positionPage(){
         scrollTop: $('#showResponseArea').offset().top
     }, 'slow');
 }
+

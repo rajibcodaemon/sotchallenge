@@ -24,7 +24,7 @@
     padding: .3rem;
     }
     .table td, .table th {
-    padding: .3rem;
+    padding: 10px 6px;
     vertical-align: top;
     border-top: 1px solid #dee2e6;
     }
@@ -33,8 +33,15 @@
     background-color: #fff important;
     text-shadow: none;
     }
+    #progressbar {
+      border: 1px solid #33d4c0;
+      border-radius: 8px;
+      text-align: center;
+    }
     #progressbar > .ui-progressbar-value {
-    background:green;
+    background:#33d4c0;
+    margin: 0;
+    border: none; 
     }
     .progress-label {
     position: absolute;
@@ -45,5 +52,36 @@
     }
     #button{
     margin-bottom: 2px;
+    background: #33d4c0;
+    border: 1px solid #33d4c0;
+    }
+    .btn-custom {
+      background: #33d4c0;
+      border: 1px solid #33d4c0;
+      color: #FFF;
+      opacity: 1 !important;
+    }
+    .gap-table{
+      padding-top: 10px;
     }
  
+
+.form-text{
+  color: red !important;
+}
+
+.card-outline-secondary {
+  margin-bottom: 40px;
+}
+
+#empResp > tbody > tr > td > btn {
+background: #33d4c0 !important;
+}
+
+.with-errors{
+  color: red;
+}
+
+.d-md-block{
+  border: 0px;
+}
