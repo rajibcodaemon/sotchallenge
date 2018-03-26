@@ -1,87 +1,79 @@
-    body {
-    padding-top: 54px;
+ body {
+     padding-top: 54px;
+}
+ @media (min-width: 992px) {
+     body {
+         padding-top: 56px;
     }
-    @media (min-width: 992px) {
-    body {
-    padding-top: 56px;
-    }
-    }
-
-
-   .show {
-    display: block !important;
-    }
-    .hidden {
-    display: none !important;
-    visibility: hidden !important;
-    }
-    .invisible {
-    visibility: hidden;
-    }
-
-    .table-condensed{
-    font-size: 13px;
-    padding: .3rem;
-    }
-    .table td, .table th {
-    padding: 10px 6px;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6;
-    }
-    .ui-progressbar {
-    position: relative;
-    background-color: #fff important;
-    text-shadow: none;
-    }
-    #progressbar {
-      border: 1px solid #33d4c0;
-      border-radius: 8px;
-      text-align: center;
-    }
-    #progressbar > .ui-progressbar-value {
-    background:#33d4c0;
-    margin: 0;
-    border: none; 
-    }
-    .progress-label {
-    position: absolute;
-    left: 50%;
-    top: 4px;
-    font-weight: bold;
-    text-shadow: none;
-    }
-    #button{
-    margin-bottom: 2px;
-    background: #33d4c0;
-    border: 1px solid #33d4c0;
-    }
-    .btn-custom {
-      background: #33d4c0;
-      border: 1px solid #33d4c0;
-      color: #FFF;
-      opacity: 1 !important;
-    }
-    .gap-table{
-      padding-top: 10px;
-    }
+}
+ .show {
+     display: block !important;
+}
+ .hidden {
+     display: none !important;
+     visibility: hidden !important;
+}
+ .invisible {
+     visibility: hidden;
+}
+ .table-condensed{
+     font-size: 13px;
+     padding: .3rem;
+}
+ .table td, .table th {
+     padding: 10px 6px;
+     vertical-align: top;
+     border-top: 1px solid #dee2e6;
+}
+ .ui-progressbar {
+     position: relative;
+     background-color: #fff important;
+     text-shadow: none;
+}
+ #progressbar {
+     border: 1px solid #33d4c0;
+     border-radius: 8px;
+     text-align: center;
+}
+ #progressbar > .ui-progressbar-value {
+     background:#33d4c0;
+     margin: 0;
+     border: none;
+}
+ .progress-label {
+     position: absolute;
+     left: 50%;
+     top: 4px;
+     font-weight: bold;
+     text-shadow: none;
+}
+ #button{
+     margin-bottom: 2px;
+     background: #33d4c0;
+     border: 1px solid #33d4c0;
+}
+ .btn-custom {
+     background: #33d4c0;
+     border: 1px solid #33d4c0;
+     color: #FFF;
+     opacity: 1 !important;
+}
+ .gap-table{
+     padding-top: 10px;
+}
+ .form-text{
+     color: red !important;
+}
+ .card-outline-secondary {
+     margin-bottom: 40px;
+}
+ #empResp > tbody > tr > td > btn {
+     background: #33d4c0 !important;
+}
+ .with-errors{
+     color: red;
+}
+ .d-md-block{
+     border: 0px;
+}
  
-
-.form-text{
-  color: red !important;
-}
-
-.card-outline-secondary {
-  margin-bottom: 40px;
-}
-
-#empResp > tbody > tr > td > btn {
-background: #33d4c0 !important;
-}
-
-.with-errors{
-  color: red;
-}
-
-.d-md-block{
-  border: 0px;
-}

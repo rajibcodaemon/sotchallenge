@@ -36,7 +36,7 @@ function getEmployeeData() {
 
 // Calling function from UI action for add employee data
 function getAddUpdataEmployeeData() {
-    $( "button" ).click(function( event ) {
+    $( "#add_edit_form" ).click(function( event ) {
     event.preventDefault();
     var data = {};
     data.emp_username = $('#emp_username').val();
@@ -132,7 +132,7 @@ function getAllEmployeeData() {
         showHideMessageResponseSuccess();
         var trHTML = '';
           $.each(response.data, function(i, item) {
-            trHTML += '<tbody><td class="d-none d-md-block">' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td class="d-none d-md-block">' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td class="d-none d-md-block">' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm" title="Delete Data"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')" title="Edit Data"><i class="fa fa-edit"></i></button></td></tr></tbody>';
+            trHTML += '<tbody><td class="d-none d-md-block">' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td class="d-block d-sm-none"> <strong >Contact Info </strong></td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td class="d-none d-md-block">' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td class="d-none d-md-block">' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm" title="Delete Data"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')" title="Edit Data"><i class="fa fa-edit"></i></button></td></tr></tbody>';
         });
 
         $('#empResp').append(trHTML);
@@ -183,13 +183,7 @@ function showLoadingAnimation() {
         function progress() {
             var val = progressbar.progressbar("value") || 0;
             progressbar.progressbar("value", val + 1);
-            if (val < 30) {
-                setTimeout(progress, Math.floor((Math.random() * 500) + 1));
-            }else if (val > 30 && val < 60) {
-                setTimeout(progress, Math.floor((Math.random() * 200) + 1));
-            }else{
-                setTimeout(progress, Math.floor((Math.random() * 400) + 1));
-            }
+              setTimeout(progress, Math.floor((Math.random() * 400) + 1));
         }
         setTimeout(progress, 1000);
     });
