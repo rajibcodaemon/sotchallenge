@@ -19,7 +19,7 @@ function getEmployeeData() {
         $('#serv_msg').empty().append(response.message);
        var trHTML = '';
           $.each(response.data, function(i, item) {
-            trHTML += '<tbody><td class="d-none d-md-block">' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td class="d-block d-sm-none"> <strong >Contact Info </strong></td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td class="d-none d-md-block">' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td class="d-none d-md-block">' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm" title="Delete Data"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')" title="Edit Data"><i class="fa fa-edit"></i></button></td></tr></tbody>';
+            trHTML += '<tbody><td class="d-none d-md-block">' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td class="d-block d-sm-none"> <strong >Contact Info </strong></td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td>' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td class="d-none d-md-block">' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm" title="Delete Data"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')" title="Edit Data"><i class="fa fa-edit"></i></button></td></tr></tbody>';
         });
         
         $('#empResp').append(trHTML);
@@ -132,7 +132,7 @@ function getAllEmployeeData() {
         showHideMessageResponseSuccess();
         var trHTML = '';
           $.each(response.data, function(i, item) {
-            trHTML += '<tbody><td class="d-none d-md-block">' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td class="d-block d-sm-none"> <strong >Contact Info </strong></td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td class="d-none d-md-block">' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td class="d-none d-md-block">' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm" title="Delete Data"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')" title="Edit Data"><i class="fa fa-edit"></i></button></td></tr></tbody>';
+            trHTML += '<tbody><td class="d-none d-md-block">' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td class="d-block d-sm-none"> <strong >Contact Info </strong></td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td>' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td class="d-none d-md-block">' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm" title="Delete Data"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')" title="Edit Data"><i class="fa fa-edit"></i></button></td></tr></tbody>';
         });
 
         $('#empResp').append(trHTML);
