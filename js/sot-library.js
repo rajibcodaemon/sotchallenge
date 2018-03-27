@@ -185,7 +185,7 @@ function showLoadingAnimation() {
             progressbar.progressbar("value", val + 1);
               setTimeout(progress, Math.floor((Math.random() * 400) + 1));
         }
-        setTimeout(progress, 1000);
+        setTimeout(progress, 500);
     });
 }
 
@@ -209,12 +209,12 @@ function apiCallBackAll(data, callurl, method, flag) {
                         window.setTimeout(function() {
                             $("#progressbar").addClass("hidden")
                             resolve(data)
-                        }, 21500);
+                        }, 20600);
                     } else {
                         window.setTimeout(function() {
                             $("#progressbar").addClass("hidden")
                             reject(data)
-                        }, 21500);
+                        }, 20600);
                     }
                 } else {
                     if (data.status == 'success') {
@@ -230,7 +230,7 @@ function apiCallBackAll(data, callurl, method, flag) {
                     window.setTimeout(function() {
                         $("#progressbar").addClass("hidden")
                         reject(error)
-                    }, 21500);
+                    }, 20600);
                 } else {
                     reject(error)
                 }
