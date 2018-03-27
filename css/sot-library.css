@@ -124,4 +124,8 @@
 .sot-table-rounded tbody tr:last-child td:last-child {
     border-radius: 0 0 10px 0;
 }
+ :required  {  
+     background: url(https://cdn0.iconfinder.com/data/icons/fugue/icon/asterisk-small.png) no-repeat;
+     background-position:right top;
+ }
  

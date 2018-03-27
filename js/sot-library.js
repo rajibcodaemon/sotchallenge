@@ -2,6 +2,8 @@
 // Calling function from UI action to retrive search data
 function getEmployeeData() {
     //e.preventDefault();
+    $( "#searchForm" ).click(function( event ) {
+    event.preventDefault();
     var data = {};
     data.emp_first_name = $('#emp_first_name_ser').val();
     data.emp_last_name = $('#emp_last_name_ser').val();
@@ -31,6 +33,7 @@ function getEmployeeData() {
         positionPage();
         });
     }
+   }); 
 }
 
 

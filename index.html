@@ -45,7 +45,7 @@
                <div class="card mt-4">
                   <div class="card-body">
                      <h3 class="card-title">Search Employee</h3>
-                     <form data-toggle="validator" role="form" id="soget" name="soget" method="POST" action="#" onsubmit="getEmployeeData();return false;">
+                     <form role="form" id="soget" name="soget" method="POST" action="#" onsubmit="getEmployeeData();return false;">
                         <div class="form-row">
                            <div class="form-group col-md-6">
                               <label for="firstname">First Name</label>
@@ -59,7 +59,7 @@
                            </div>
 
                         </div>
-                        <button type="submit" class="btn btn-custom">Submit</button>
+                        <button type="submit" class="btn btn-custom" id="searchForm">Submit</button>
                      </form>
                   </div>
                </div>
@@ -124,7 +124,7 @@
                   </button>
                </div>
                <div class="modal-body">
-                  <form data-toggle="validator" role="form"  id="getAddUpdataEmployeeData" name="updateEmployee" method="POST" action="#" onsubmit="getAddUpdataEmployeeData();return false;">
+                  <form  role="form"  id="getAddUpdataEmployeeData" name="updateEmployee" method="POST"  onsubmit="getAddUpdataEmployeeData();return false;">
                      <input type="hidden" class="form-control" id="emp_id" name="emp_id" required>
                      <div class="form-group">
                         <label for="emp_username">User Name</label>
