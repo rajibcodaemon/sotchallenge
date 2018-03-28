@@ -1,5 +1,7 @@
- body {
+ @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,900');
+body {
      padding-top: 54px;
+     font-family: 'Roboto', sans-serif !important;
 }
  @media (min-width: 992px) {
      body {
@@ -94,7 +96,7 @@
 .sot-table tbody td {
     border: solid 1px #33D4C0;
     color: #333;
-    padding: 10px;
+    /*padding: 7px;*/
     text-shadow: 1px 1px 1px #fff;
 }
 .sot-table-rounded {
@@ -124,8 +126,24 @@
 .sot-table-rounded tbody tr:last-child td:last-child {
     border-radius: 0 0 10px 0;
 }
- :required  {  
+ .required  {  
      background: url(https://cdn0.iconfinder.com/data/icons/fugue/icon/asterisk-small.png) no-repeat;
      background-position:right top;
  }
+ .errmsg {
+    color: #ff2114;
+    font-family: "OpenSansRegular",Arial,Helvetica,sans-serif;
+    font-size: 15px;
+    margin-top: 2px;
+}
+
+#empResp .btn {
+     background-color: #33D4C0 !important;
+}
+
+.navbar-toggler {
+     border: solid 1px #FFF !important;
+     border-radius: 5px !important;
+     padding: 2px 8px;
+}
  

@@ -1,13 +1,14 @@
 
 // Calling function from UI action to retrive search data
 function getEmployeeData() {
-    //e.preventDefault();
-    $( "#searchForm" ).click(function( event ) {
-    event.preventDefault();
     var data = {};
     data.emp_first_name = $('#emp_first_name_ser').val();
     data.emp_last_name = $('#emp_last_name_ser').val();
-
+    var status = 0;
+    status = searchFormValidation(data);
+    if(status == 0){
+     return false;
+    }
     var callurl = 'http://52.87.171.80/sample_crud_rest/api/v1/employee?filter=emp_first_name=' + data.emp_first_name + ',emp_last_name=' + data.emp_last_name;
     var method = 'GET';
     var datavar = null;
@@ -33,14 +34,11 @@ function getEmployeeData() {
         positionPage();
         });
     }
-   }); 
 }
 
 
 // Calling function from UI action for add employee data
 function getAddUpdataEmployeeData() {
-    $( "#add_edit_form" ).click(function( event ) {
-    event.preventDefault();
     var data = {};
     data.emp_username = $('#emp_username').val();
     data.emp_first_name = $('#emp_first_name').val();
@@ -51,7 +49,12 @@ function getAddUpdataEmployeeData() {
     data.emp_address = $('#emp_address').val();
     data.emp_designation = $('#emp_designation').val();
     data.emp_department = $("#emp_department option:selected").val();
-
+    var status = 0;
+    status = addEditFormValidation(data);
+    if(status == 0){
+     return false;
+    }
+    
     if ($('#emp_id').val() != '') {
         data.emp_id = $('#emp_id').val();
         var callingurl = "http://52.87.171.80/sample_crud_rest/api/v1/employee/" + data.emp_id;
@@ -85,7 +88,6 @@ function getAddUpdataEmployeeData() {
         });
     }else{
     }
-  });
 }
 
 // Javascript function from UI to load edit modal on UI.
@@ -135,7 +137,7 @@ function getAllEmployeeData() {
         showHideMessageResponseSuccess();
         var trHTML = '';
           $.each(response.data, function(i, item) {
-            trHTML += '<tbody><td class="d-none d-md-block">' + item.emp_username + '</td><td>' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td class="d-block d-sm-none"> <strong >Contact Info </strong></td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td>' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td class="d-none d-md-block">' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm" title="Delete Data"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')" title="Edit Data"><i class="fa fa-edit"></i></button></td></tr></tbody>';
+            trHTML += '<tbody><td class="d-none d-md-block">' + item.emp_username + '</td><td class="emp-name">' + item.emp_first_name +' '+' ' +'' + item.emp_last_name + '</td><td class="d-block d-sm-none"> <strong >Contact Info </strong></td><td>' + item.emp_phone + '</td><td>' + item.emp_email + '</td><td>' + item.emp_address + '</td><td>' + item.emp_designation + '</td><td class="d-none d-md-block">' + item.emp_department + '</td><td><button onclick="deleteEmployee(' + item.emp_id + ')" type="button" class="btn btn-default btn-sm" title="Delete Data"><i class="fa fa-close"></i></button>&nbsp;<button type="button" class="btn btn-default btn-sm"  onclick="showEditEmployeeModal(' + item.emp_id + ')" title="Edit Data"><i class="fa fa-edit"></i></button></td></tr></tbody>';
         });
 
         $('#empResp').append(trHTML);
@@ -287,5 +289,75 @@ function positionPage(){
   $('html, body').animate({
         scrollTop: $('#showResponseArea').offset().top
     }, 'slow');
+}
+
+// Search form validation
+function searchFormValidation(data){ 
+    $('.errmsg').html('');
+    if(data.emp_first_name == ""){
+        $('#emp_first_name_ser_error').html('Please enter first name');
+        $('#emp_first_name_ser_error').focus();
+       return false;
+    }
+    else if(data.emp_last_name == ""){
+        $('#emp_last_name_ser_error').html('Please enter last name');
+        $('#emp_last_name_ser_error').focus();
+        return false;
+    }
+    else{
+     return 1;
+    }
+
+}
+
+
+// Ad edit modal validation function
+function addEditFormValidation(data){ 
+    $('.errmsg').html('');
+
+    if(data.emp_username == ""){
+        $('#emp_username_error').html('Please enter user name');
+        $('#emp_username_error').focus();
+        return false;
+    }
+    else if(data.emp_first_name == ""){
+        $('#emp_first_name_error').html('Please enter first name');
+        $('#emp_first_name_ser_error').focus();
+        return false;
+    }
+    else if(data.emp_last_name == ""){
+        $('#emp_last_name_error').html('Please enter last name');
+        $('#emp_last_name_error').focus();
+        return false;
+    }
+    else if(data.emp_email == ""){
+        $('#emp_email_error').html('Please enter email id');
+        $('#emp_email_error').focus();
+        return false;
+    }
+    else if(data.emp_phone == ""){
+        $('#emp_phone_error').html('Please enter phone number');
+        $('#emp_phone_error').focus();
+        return false;
+    }
+    else if(data.emp_address == ""){
+        $('#emp_address_error').html('Please enter employee address');
+        $('#emp_address_error').focus();
+        return false;
+    }
+    else if(data.emp_designation == ""){
+        $('#emp_designation_error').html('Please enter designation');
+        $('#emp_designation_error').focus();
+        return false;
+    }
+    else if(data.emp_department == ""){
+        $('#emp_designation_error').html('Please select department');
+        $('#emp_designation_error').focus();
+        return false;
+    }
+    else{
+     return 1;
+    }
+
 }
 

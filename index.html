@@ -45,17 +45,17 @@
                <div class="card mt-4">
                   <div class="card-body">
                      <h3 class="card-title">Search Employee</h3>
-                     <form role="form" id="soget" name="soget" method="POST" action="#" onsubmit="getEmployeeData();return false;">
+                     <form  id="soget" data-disable="true" name="soget"  action="#" onsubmit="getEmployeeData();return false;">
                         <div class="form-row">
                            <div class="form-group col-md-6">
                               <label for="firstname">First Name</label>
-                              <input type="text" class="form-control" id="emp_first_name_ser" name="emp_first_name" placeholder="e.g: Bijoy" required>
-                              <div class="help-block with-errors"></div>
+                              <input type="text" class="required form-control" id="emp_first_name_ser" name="emp_first_name" placeholder="e.g: Bijoy" >
+                              <div class="errmsg" id="emp_first_name_ser_error"></div>
                            </div>
                            <div class="form-group col-md-6">
                               <label for="lastname">Last Name</label>
-                              <input type="text" class="form-control" id="emp_last_name_ser" name="emp_last_name" placeholder="e.g: Malik" required>
-                              <div class="help-block with-errors"></div>
+                              <input type="text" class="required form-control" id="emp_last_name_ser" name="emp_last_name" placeholder="e.g: Malik" >
+                              <div class="errmsg" id="emp_last_name_ser_error"></div>
                            </div>
 
                         </div>
@@ -66,14 +66,12 @@
                <!-- /.card -->
                <div class="row gap-table"></div>
                <div class="card card-outline-secondary">
-                  <div class="card-header">Action Result</div>
+                  <div class="card-header">Employee Operation</div>
                   <div class="card-body">
                      <button id="button" type="button" class="btn btn-primary" onclick="getAllEmployeeData()">Show All</button>&nbsp;
                      <button type="button" class="btn btn-primary btn-custom" data-toggle="modal" data-target="#getAddUpdataEmployeeDataModal" onclick="clearModalData();">Add Employee</button>
-                  </div>
-                  <!-- <div class="card-body" id="employeeResponse"></div> -->
-                  <div id="showResponseArea">
-                  	<div class="card-body">
+                      <div class="row gap-table"></div>
+                    <div id="showResponseArea">
                      <div id="progressbar" class="hidden">
                         <div class="progress-label"></div>
                      </div>
@@ -81,6 +79,7 @@
                         <span id="serv_msg"></span>
                      </div>
                  </div>
+              </div>
                  <div class="card-body">
                      <div id="table" class="hidden">
                         <div class="wrapper container">
@@ -124,65 +123,65 @@
                   </button>
                </div>
                <div class="modal-body">
-                  <form  role="form"  id="getAddUpdataEmployeeData" name="updateEmployee" method="POST"  onsubmit="getAddUpdataEmployeeData();return false;">
+                  <form  id="getAddUpdataEmployeeData" name="updateEmployee" method="POST"  onsubmit="getAddUpdataEmployeeData();return false;">
                      <input type="hidden" class="form-control" id="emp_id" name="emp_id" required>
                      <div class="form-group">
                         <label for="emp_username">User Name</label>
-                        <input type="text" class="form-control" id="emp_username" name="emp_username" placeholder="Emploee User Name" required>
-                        <div class="help-block with-errors"></div>
+                        <input type="text" class="required form-control" id="emp_username" name="emp_username" placeholder="Emploee User Name" >
+                        <div class="errmsg" id="emp_username_error"></div>
                      </div>
                      <div class="form-group">
                         <label for="emp_first_name">First Name</label>
-                        <input type="text" class="form-control" id="emp_first_name" name="emp_first_name" placeholder="Emploee First Name" required>
-                        <div class="help-block with-errors"></div>
+                        <input type="text" class="required form-control" id="emp_first_name" name="emp_first_name" placeholder="Emploee First Name" >
+                        <div class="errmsg" id="emp_first_name_error"></div>
                      </div>
                      <div class="form-group">
                         <label for="emp_last_name">Last Name</label>
-                        <input type="text" class="form-control" id="emp_last_name" name="emp_last_name" placeholder="Emploee Last Name" required>
-                        <div class="help-block with-errors"></div>
+                        <input type="text" class="required form-control" id="emp_last_name" name="emp_last_name" placeholder="Emploee Last Name" >
+                        <div class="errmsg" id="emp_last_name_error"></div>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input class="required form-check-input" type="radio" name="emp_gender" id="emp_gender_male" value="male"  required>
+                        <input class="form-check-input" type="radio" name="emp_gender" id="emp_gender_male" value="male" checked="checked" >
                         <label class="form-check-label" for="inlineRadio1">Male</label>
-                        <div class="help-block with-errors"></div>
+                        
                      </div>
                      <div class="form-check form-check-inline">
-                        <input class="required form-check-input" type="radio" name="emp_gender" id="emp_gender_female" value="female" required>
+                        <input class="form-check-input" type="radio" name="emp_gender" id="emp_gender_female" value="female" >
                         <label class="form-check-label" for="inlineRadio2">Female</label>
                      </div>
                      <div class="form-group">
                         <label for="exampleFormControlInput1">Email address</label>
-                        <input type="email" class="form-control" id="emp_email" name="emp_email" placeholder="name@example.com" required>
-                        <div class="help-block with-errors"></div>
+                        <input type="email" class="required form-control" id="emp_email" name="emp_email" placeholder="name@example.com">
+                        <div class="errmsg" id="emp_email_error"></div>
                      </div>
                      <div class="form-group">
                         <label for="exampleFormControlInput1">Phone</label>
-                        <input type="text" class="form-control" id="emp_phone" name="emp_phone" placeholder="" required>
-                        <div class="help-block with-errors"></div>
+                        <input type="text" class="required form-control" id="emp_phone" name="emp_phone" placeholder="" >
+                        <div class="errmsg" id="emp_phone_error"></div>
                      </div>
                      <div class="form-group">
                         <label for="inputAddress">Address</label>
-                        <input type="text" class="form-control" id="emp_address" name="emp_address" placeholder="1234 Main St" required>
-                        <div class="help-block with-errors"></div>
+                        <input type="text" class="required form-control" id="emp_address" name="emp_address" placeholder="1234 Main St" >
+                        <div class="errmsg" id="emp_address_error"></div>
                      </div>
                      <div class="form-group">
                         <label for="emp_last_name">Designation</label>
-                        <input type="text" class="form-control" id="emp_designation" name="emp_designation" placeholder="Employee Designation" required>
-                        <div class="help-block with-errors"></div>
+                        <input type="text" class="required form-control" id="emp_designation" name="emp_designation" placeholder="Employee Designation">
+                         <div class="errmsg" id="emp_designation_error"></div>
                      </div>
                      <div class="form-group">
                         <label for="EmployeeDepartment">Department</label>
-                        <select class="required form-control" id="emp_department" name="emp_department" required>
+                        <select class="required form-control" id="emp_department" name="emp_department" >
                            <option value="">Select Department</option>
                            <option value="HR">HR</option>
                            <option value="BD">BD</option>
                            <option value="SD">SD</option>
                         </select>
-                        <div class="help-block with-errors"></div>
+                        <div class="errmsg" id="emp_department_error"></div>
                      </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="add_edit_form" name="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" id="addEditform" name="submit" class="btn btn-primary">Submit</button>
                      </div>
                   </form>
                </div>
@@ -199,7 +198,6 @@
       </footer>
       <!-- Custom js for this challenge -->
       <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
-      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
       <script src="js/sot-library.js"></script>
       <!-- Bootstrap core JavaScript -->
       <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
